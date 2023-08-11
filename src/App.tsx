@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import hotel from './constant/hotel-details'
+import Main from './components/Main';
+import './assets/css/style.css'
+const App: React.FC = () => {
+  const handleLogin = () => {
+    // Implement your login logic here
+    alert('Login clicked!');
+  };
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='main-wrapper'>
+      <Header title={hotel.name.toUpperCase()} onLogin={handleLogin} />
+      <Main/>
+      <Footer socialLinks={hotel.socialLinks} hotelName={hotel.name} year={hotel.copyright.year}/>
     </div>
   );
-}
+};
 
 export default App;
