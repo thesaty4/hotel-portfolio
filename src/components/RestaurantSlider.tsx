@@ -1,18 +1,20 @@
-import React from 'react';
-import Slider from 'react-slick';
-import { Box, Button, Typography } from '@mui/material';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import '../assets/scss/style.scss';
-
+import React from "react";
+import "../assets/scss/style.scss";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+const images = [
+  "/images/slider-01.jpg",
+  "/images/slider-02.jpg",
+  "/images/slider-03.jpg",
+];
 interface SlideItem {
   imageUrl: string;
   title: string;
   description: string;
   action: {
-    label: string,
-    link: string
-  }
+    label: string;
+    link: string;
+  };
 }
 
 interface RestaurantSliderProps {
@@ -31,54 +33,101 @@ const RestaurantSlider: React.FC<RestaurantSliderProps> = ({ slides }) => {
     pauseOnHover: false,
   };
 
-  return ( 
-    <div id="slides" className="cover-slides">
-		<ul className="slides-container">
-			<li className="text-center">
-				<img src="/images/slider-01.jpg" alt=""/>
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<h1 className="m-b-20"><strong>Welcome To <br/> Yamifood Restaurant</strong></h1>
-							<p className="m-b-40">See how your users experience your website in realtime or view  <br/> 
-							trends to see any changes in performance over time.</p>
-							<p><a className="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li className="text-center">
-				<img src="/images/slider-02.jpg" alt=""/>
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<h1 className="m-b-20"><strong>Welcome To <br/> Yamifood Restaurant</strong></h1>
-							<p className="m-b-40">See how your users experience your website in realtime or view  <br/> 
-							trends to see any changes in performance over time.</p>
-							<p><a className="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li className="text-center">
-				<img src="/images/slider-03.jpg" alt=""/>
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<h1 className="m-b-20"><strong>Welcome To <br/> Yamifood Restaurant</strong></h1>
-							<p className="m-b-40">See how your users experience your website in realtime or view  <br/> 
-							trends to see any changes in performance over time.</p>
-							<p><a className="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a></p>
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-		<div className="slides-navigation">
-			<a href="#" className="next"><i className="fa fa-angle-right" aria-hidden="true"></i></a>
-			<a href="#" className="prev"><i className="fa fa-angle-left" aria-hidden="true"></i></a>
-		</div>
-	</div>
+  return (
+    <>
+      <div className="slider_wrapper">
+        <Carousel useKeyboardArrows={true}>
+          {images.map((URL, index) => (
+            <div className="slide">
+              <img alt="sample_file" src={URL} key={index} />
+            </div>
+          ))}
+        </Carousel>
+      </div>
+      {/* <Carousel>
+        <div>
+          <img src="/images/slider-01.jpg" />
+          <div className="carousel-text">
+            <div className="row">
+              <div className="col-md-12">
+                <h1 className="m-b-20">
+                  <strong>
+                    Welcome To <br /> Yamifood Restaurant
+                  </strong>
+                </h1>
+                <p className="m-b-40">
+                  See how your users experience your website in realtime or view{" "}
+                  <br />
+                  trends to see any changes in performance over time.
+                </p>
+                <p>
+                  <a
+                    className="btn btn-lg btn-circle btn-outline-new-white"
+                    href="#"
+                  >
+                    Reservation
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="/images/slider-02.jpg" />
+          <div className="carousel-text">
+            <div className="row">
+              <div className="col-md-12">
+                <h1 className="m-b-20">
+                  <strong>
+                    Welcome To <br /> Yamifood Restaurant
+                  </strong>
+                </h1>
+                <p className="m-b-40">
+                  See how your users experience your website in realtime or view{" "}
+                  <br />
+                  trends to see any changes in performance over time.
+                </p>
+                <p>
+                  <a
+                    className="btn btn-lg btn-circle btn-outline-new-white"
+                    href="#"
+                  >
+                    Reservation
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="/images/slider-03.jpg" />
+          <div className="carousel-text">
+            <div className="row">
+              <div className="col-md-12">
+                <h1 className="m-b-20">
+                  <strong>
+                    Welcome To <br /> Yamifood Restaurant
+                  </strong>
+                </h1>
+                <p className="m-b-40">
+                  See how your users experience your website in realtime or view{" "}
+                  <br />
+                  trends to see any changes in performance over time.
+                </p>
+                <p>
+                  <a
+                    className="btn btn-lg btn-circle btn-outline-new-white"
+                    href="#"
+                  >
+                    Reservation
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Carousel> */}
+    </>
   );
 };
 
