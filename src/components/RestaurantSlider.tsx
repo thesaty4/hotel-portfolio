@@ -2,10 +2,25 @@ import React from "react";
 import "../assets/scss/style.scss";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-const images = [
-  "/images/slider-01.jpg",
-  "/images/slider-02.jpg",
-  "/images/slider-03.jpg",
+const content = [
+  {
+    image: "/images/slider-01.jpg",
+    title: "Welcome To Chhappanbhog Dhaba & Restaurant ",
+    desc: ` See how your users experience your website in realtime or view
+            trends to see any changes in performance over time.`,
+  },
+  {
+    image: "/images/slider-02.jpg",
+    title: "Welcome To Chhappanbhog Dhaba & Restaurant ",
+    desc: ` See how your users experience your website in realtime or view
+            trends to see any changes in performance over time.`,
+  },
+  {
+    image: "/images/slider-03.jpg",
+    title: "Welcome To Chhappanbhog Dhaba & Restaurant ",
+    desc: ` See how your users experience your website in realtime or view
+            trends to see any changes in performance over time.`,
+  },
 ];
 interface SlideItem {
   imageUrl: string;
@@ -37,96 +52,19 @@ const RestaurantSlider: React.FC<RestaurantSliderProps> = ({ slides }) => {
     <>
       <div className="slider_wrapper">
         <Carousel useKeyboardArrows={true}>
-          {images.map((URL, index) => (
+          {content.map((item, index) => (
             <div className="slide">
-              <img alt="sample_file" src={URL} key={index} />
+              <img alt="sample_file" src={item.image} key={index} />
+              <div className="content__wrapper">
+                <div className="title">{item.title}</div>
+                <div className="description">
+                  <span>{item.desc}</span>
+                </div>
+              </div>
             </div>
           ))}
         </Carousel>
       </div>
-      {/* <Carousel>
-        <div>
-          <img src="/images/slider-01.jpg" />
-          <div className="carousel-text">
-            <div className="row">
-              <div className="col-md-12">
-                <h1 className="m-b-20">
-                  <strong>
-                    Welcome To <br /> Yamifood Restaurant
-                  </strong>
-                </h1>
-                <p className="m-b-40">
-                  See how your users experience your website in realtime or view{" "}
-                  <br />
-                  trends to see any changes in performance over time.
-                </p>
-                <p>
-                  <a
-                    className="btn btn-lg btn-circle btn-outline-new-white"
-                    href="#"
-                  >
-                    Reservation
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img src="/images/slider-02.jpg" />
-          <div className="carousel-text">
-            <div className="row">
-              <div className="col-md-12">
-                <h1 className="m-b-20">
-                  <strong>
-                    Welcome To <br /> Yamifood Restaurant
-                  </strong>
-                </h1>
-                <p className="m-b-40">
-                  See how your users experience your website in realtime or view{" "}
-                  <br />
-                  trends to see any changes in performance over time.
-                </p>
-                <p>
-                  <a
-                    className="btn btn-lg btn-circle btn-outline-new-white"
-                    href="#"
-                  >
-                    Reservation
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img src="/images/slider-03.jpg" />
-          <div className="carousel-text">
-            <div className="row">
-              <div className="col-md-12">
-                <h1 className="m-b-20">
-                  <strong>
-                    Welcome To <br /> Yamifood Restaurant
-                  </strong>
-                </h1>
-                <p className="m-b-40">
-                  See how your users experience your website in realtime or view{" "}
-                  <br />
-                  trends to see any changes in performance over time.
-                </p>
-                <p>
-                  <a
-                    className="btn btn-lg btn-circle btn-outline-new-white"
-                    href="#"
-                  >
-                    Reservation
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Carousel> */}
     </>
   );
 };
