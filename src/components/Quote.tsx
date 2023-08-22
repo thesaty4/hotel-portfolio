@@ -1,18 +1,22 @@
-const Quote = ()=>{
-    return (<> 
-	<div className="qt-box qt-background">
-		<div className="container">
-			<div className="row">
-				<div className="col-md-8 ml-auto mr-auto text-left">
-					<p className="lead ">
-						" If you're not the one cooking, stay out of the way and compliment the chef. "
-					</p>
-					<span className="lead">Michael Strahan</span>
-				</div>
-			</div>
-		</div>
-	</div> 
-    </>)
+import React from "react";
+interface QuoteType {
+  quote: { content: string; writer: string };
 }
+const Quote: React.FC<QuoteType> = ({ quote }) => {
+  return (
+    <>
+      <div className="qt-box qt-background">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-8 ml-auto mr-auto text-left">
+              <p className="lead ">{quote.content}</p>
+              <span className="lead">{quote.writer}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Quote;

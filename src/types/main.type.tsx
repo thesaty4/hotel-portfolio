@@ -1,16 +1,21 @@
-export default interface SlideItem {
-    imageUrl: string;
-    title: string;
-    description: string;
-    action: {
-      label: string,
-      link: string
-    }
-  }
+export interface SlideItem {
+  image: string;
+  title: string;
+  desc: string;
+}
 
-export default interface AboutProps {
-    imageSrc: string;
-    restaurantName: string;
-    description: string;
-  }
-  
+type CurrencyType = "INR" | "USD" | "UK";
+
+export type Item = SlideItem & {
+  price: number;
+  currencyType: CurrencyType;
+};
+
+export type ItemMenuType = Record<string, Item[]>;
+
+export type CustomerReviewType = {
+  image: string;
+  name: string;
+  designation: string;
+  notes: string;
+};
