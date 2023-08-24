@@ -53,8 +53,11 @@ const ItemMenu: React.FC<ItemMenuComponentType> = ({ items }) => {
                   return [...acc, ...curr];
                 }, [])
               : items[selectedItem]
-            )?.map((item) => (
-              <div className="col-lg-4 col-md-6 special-grid drinks">
+            )?.map((item, index) => (
+              <div
+                key={index}
+                className="col-lg-4 col-md-6 special-grid drinks"
+              >
                 <div className="gallery-single fix">
                   <img
                     src={item.image}

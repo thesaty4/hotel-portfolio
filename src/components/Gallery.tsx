@@ -20,8 +20,8 @@ const Gallery: React.FC<GalleryType> = ({ items }) => {
           </div>
           <div className="tz-gallery">
             <div className="row">
-              {items.map((item) => (
-                <div className="col-sm-12 col-md-4 col-lg-4">
+              {items.map((item, index) => (
+                <div key={index} className="col-sm-12 col-md-4 col-lg-4">
                   <a className="lightbox" href={item.image}>
                     <img
                       className="img-fluid"

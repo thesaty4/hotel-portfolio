@@ -26,8 +26,8 @@ const RestaurantSlider: React.FC<RestaurantSlider> = ({ slides }) => {
       <div className="slider_wrapper">
         <Carousel useKeyboardArrows={true}>
           {slides.map((item, index) => (
-            <div className="slide">
-              <img alt="sample_file" src={item.image} key={index} />
+            <div key={index} className="slide">
+              <img alt="sample_file" src={item.image} />
               <div className="content__wrapper">
                 <div className="title">{item.title}</div>
                 <div className="description">
