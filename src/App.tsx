@@ -11,12 +11,12 @@ const App: React.FC = () => {
   };
 
   const [data, setData] = React.useState(null);
-  React.useEffect(() => {
-    fetch("http://localhost:5000")
-      .then((res) => res.json())
-      .then((res) => setData(res.message));
-  }, []);
-  console.log("*********", data);
+  // React.useEffect(() => {
+  //   fetch("http://localhost:5000")
+  //     .then((res) => res.json())
+  //     .then((res) => setData(res.message));
+  // }, []);
+  // console.log("*********", data);
   return (
     <div className="main-wrapper">
       <Header title={hotel.name.toUpperCase()} onLogin={handleLogin} />
