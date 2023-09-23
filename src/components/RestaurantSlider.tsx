@@ -23,7 +23,7 @@ const RestaurantSlider: React.FC<RestaurantSlider> = ({ slides }) => {
 
   return (
     <>
-      <div className="slider_wrapper">
+      <div id="home" className="slider_wrapper">
         <Carousel useKeyboardArrows={true}>
           {slides.map((item, index) => (
             <div key={index} className="slide">

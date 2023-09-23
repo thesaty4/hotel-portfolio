@@ -9,7 +9,7 @@ const ItemMenu: React.FC<ItemMenuComponentType> = ({ items }) => {
   const [selectedItem, itemAction] = useState("All");
   return (
     <>
-      <div className="menu-box">
+      <div id="menu" className="menu-box">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">

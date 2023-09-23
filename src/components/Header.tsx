@@ -1,4 +1,5 @@
-import React from "react";
+import { Box } from "@mui/system";
+import React, { useState } from "react";
 
 interface HeaderProps {
   title: string;
@@ -6,6 +7,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
+  const menuList = [
+    { id: "home", value: "Home" },
+    { id: "menu", value: "Menu" },
+    { id: "about", value: "About" },
+    { id: "contact", value: "Contact" },
+  ];
+  const [activeMenu, setActiveMenu] = useState("Home");
+
   return (
     <header className="top-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,69 +33,26 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbars-rs-food">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="index.html">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="menu.html">
-                  Menu
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="about.html">
-                  About
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="dropdown-a"
-                  data-toggle="dropdown"
+          <Box
+            sx={{ justifyContent: "flex-end" }}
+            className="collapse navbar-collapse"
+            id="navbars-rs-food"
+          >
+            <ul style={{ gap: "10px" }} className="navbar-nav ml-auto">
+              {menuList.map((item) => (
+                <li
+                  onClick={() => setActiveMenu(item.value)}
+                  className={`nav-item ${
+                    item.value == activeMenu ? "active" : ""
+                  }`}
                 >
-                  Pages
-                </a>
-                <div className="dropdown-menu" aria-labelledby="dropdown-a">
-                  <a className="dropdown-item" href="reservation.html">
-                    Reservation
+                  <a className="nav-link" href={`#${item.id}`}>
+                    {item.value}
                   </a>
-                  <a className="dropdown-item" href="stuff.html">
-                    Stuff
-                  </a>
-                  <a className="dropdown-item" href="gallery.html">
-                    Gallery
-                  </a>
-                </div>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="dropdown-a"
-                  data-toggle="dropdown"
-                >
-                  Blog
-                </a>
-                <div className="dropdown-menu" aria-labelledby="dropdown-a">
-                  <a className="dropdown-item" href="blog.html">
-                    blog
-                  </a>
-                  <a className="dropdown-item" href="blog-details.html">
-                    blog Single
-                  </a>
-                </div>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="contact.html">
-                  Contact
-                </a>
-              </li>
+                </li>
+              ))}
             </ul>
-          </div>
+          </Box>
         </div>
       </nav>
     </header>

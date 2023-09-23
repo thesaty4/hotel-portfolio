@@ -1,7 +1,7 @@
 export const ContactInfo = () => {
   return (
     <>
-      <div className="contact-imfo-box">
+      <div id="contact" className="contact-imfo-box">
         <div className="container">
           <div className="row">
             <div className="col-md-4">
