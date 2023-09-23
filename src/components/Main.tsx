@@ -15,23 +15,44 @@ import {
 } from "../constant/hotel-feature-data.const";
 import React, { useState } from "react";
 import Request from "../services/Request";
+import { SiteInfo } from "../types/site-info.types";
+import AlertMessage from "../shared/presentational/AlertMessage";
+import { AlertType } from "../types/common.type";
 const Main = () => {
-  const [myQuote, setMyQuote] = useState<QuoteType>();
+  const [siteInfo, setSiteInfo] = useState<SiteInfo>();
+  const [messageShow, setMessage] = useState<{
+    isShow: Boolean;
+    type: AlertType;
+    message: String;
+  }>();
   const service = new Request();
   React.useEffect(() => {
     service
-      .getSiteInfo<QuoteType>()
+      .getSiteInfo<SiteInfo>()
       .then((res) => {
-        debugger;
-        // setMyQuote(res);
+        setSiteInfo(res);
+        setMessage({
+          isShow: true,
+          type: "success",
+          message: "Site information loaded !",
+        });
       })
       .catch((error) => {
-        console.log(error);
+        setMessage({
+          isShow: true,
+          type: "error",
+          message: "Site information loaded !",
+        });
       });
   }, []);
-  console.log(myQuote);
   return (
     <>
+      {messageShow?.isShow && (
+        <AlertMessage
+          errorType={messageShow.type}
+          message={messageShow.message}
+        ></AlertMessage>
+      )}
       <RestaurantSlider slides={sliderContent} />
       <About info={aboutContent} />
       <Quote />
