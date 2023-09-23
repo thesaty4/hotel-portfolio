@@ -16,50 +16,36 @@ import {
 import React, { useState } from "react";
 import Request from "../services/Request";
 import { SiteInfo } from "../types/site-info.types";
-import AlertMessage from "../shared/presentational/AlertMessage";
-import { AlertType } from "../types/common.type";
+import useSnackbar from "../custom-hooks/Snackbar";
 const Main = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo>();
-  const [messageShow, setMessage] = useState<{
-    isShow: Boolean;
-    type: AlertType;
-    message: String;
-  }>();
   const service = new Request();
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
   React.useEffect(() => {
     service
       .getSiteInfo<SiteInfo>()
       .then((res) => {
         setSiteInfo(res);
-        setMessage({
-          isShow: true,
-          type: "success",
-          message: "Site information loaded !",
-        });
+        showSnackbar("Site information loaded !", "success");
       })
       .catch((error) => {
-        setMessage({
-          isShow: true,
-          type: "error",
-          message: "Site information loaded !",
-        });
+        showSnackbar("Site load error !", "error");
       });
   }, []);
   return (
     <>
-      {messageShow?.isShow && (
-        <AlertMessage
-          errorType={messageShow.type}
-          message={messageShow.message}
-        ></AlertMessage>
+      {siteInfo?.items && (
+        <>
+          <SnackbarComponent />
+          <RestaurantSlider slides={sliderContent} />
+          <About info={aboutContent} />
+          <Quote />
+          <ItemMenu items={items} />
+          <Gallery items={galleryContent} />
+          <CustomerReview items={customerReviewContent} />
+          <ContactInfo />
+        </>
       )}
-      <RestaurantSlider slides={sliderContent} />
-      <About info={aboutContent} />
-      <Quote />
-      <ItemMenu items={items} />
-      <Gallery items={galleryContent} />
-      <CustomerReview items={customerReviewContent} />
-      <ContactInfo />
     </>
   );
 };
