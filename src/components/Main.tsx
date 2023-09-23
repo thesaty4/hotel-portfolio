@@ -39,7 +39,7 @@ const Main = () => {
           <SnackbarComponent />
           <RestaurantSlider slides={sliderContent} />
           <About info={aboutContent} />
-          <Quote />
+          <Quote quoteContent={quoteContent} />
           <ItemMenu items={items} />
           <Gallery items={galleryContent} />
           <CustomerReview items={customerReviewContent} />
