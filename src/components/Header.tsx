@@ -7,6 +7,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
+  const [isCollapsed, setCollapsed] = useState(false);
   const menuList = [
     { id: "home", value: "Home" },
     { id: "menu", value: "Menu" },
@@ -23,20 +24,21 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
             <img src={require("../assets/images/logo.png")} alt="" />
           </a>
           <button
+            onClick={() => setCollapsed(!isCollapsed)}
             className="navbar-toggler"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbars-rs-food"
-            aria-controls="navbars-rs-food"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <Box
-            sx={{ justifyContent: "flex-end" }}
-            className="collapse navbar-collapse"
-            id="navbars-rs-food"
+            sx={{
+              justifyContent: "flex-end",
+              ...{ display: isCollapsed ? "block" : "none" },
+              padding: "20px 10px 20px",
+              "box-shadow": "0px 0px 3px #b0a5a5",
+            }}
+            className="navbar-collapse"
+            id="navbarSupportedContent"
           >
             <ul style={{ gap: "10px" }} className="navbar-nav ml-auto">
               {menuList.map((item) => (
@@ -45,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
                   className={`nav-item ${
                     item.value == activeMenu ? "active" : ""
                   }`}
+                  key={item.id}
                 >
                   <a className="nav-link" href={`#${item.id}`}>
                     {item.value}
