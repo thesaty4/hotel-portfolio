@@ -1,10 +1,30 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import MenuListComposition, {
+  MenuListType,
+} from "../shared/component/MenuListComposition";
 
 interface HeaderProps {
   title: string;
   onLogin: () => void;
 }
+
+export const profileMenu: MenuListType = {
+  itemList: [
+    {
+      item: "My Profile",
+      action() {
+        console.log("Go To My profile..");
+      },
+    },
+    {
+      item: "Log out",
+      action() {
+        console.log("Clicked in logout..");
+      },
+    },
+  ],
+};
 
 const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   const [isCollapsed, setCollapsed] = useState(false);
@@ -35,7 +55,6 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
               justifyContent: "flex-end",
               ...{ display: isCollapsed ? "block" : "none" },
               padding: "20px 10px 20px",
-              "box-shadow": "0px 0px 3px #b0a5a5",
             }}
             className="navbar-collapse"
             id="navbarSupportedContent"
@@ -54,6 +73,9 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
                   </a>
                 </li>
               ))}
+              <li>
+                <MenuListComposition itemList={profileMenu.itemList} />
+              </li>
             </ul>
           </Box>
         </div>

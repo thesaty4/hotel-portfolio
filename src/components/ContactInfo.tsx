@@ -3,7 +3,12 @@ export const ContactInfo = () => {
     <>
       <div id="contact" className="contact-imfo-box">
         <div className="container">
-          <div className="row">
+          <div
+            className="row"
+            style={{
+              rowGap: "23px",
+            }}
+          >
             <div className="col-md-4">
               <i className="fa fa-volume-control-phone"></i>
               <div className="overflow-hidden">

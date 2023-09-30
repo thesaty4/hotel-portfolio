@@ -64,7 +64,7 @@ const ItemMenu: React.FC<ItemMenuComponentType> = ({ items }) => {
                     className="img-fluid"
                     alt={item.title}
                   />
-                  <div className="why-text">
+                  <div style={{ zoom: "0.8" }} className="why-text">
                     <h4>{item.title}</h4>
                     <p>{item.desc}</p>
                     <h5>
