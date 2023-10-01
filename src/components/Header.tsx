@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MenuListComposition, {
   MenuListType,
 } from "../shared/component/MenuListComposition";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   title: string;
@@ -69,9 +69,9 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
                   }`}
                   key={item.id}
                 >
-                  <a className="nav-link" href={`/#${item.id}`}>
+                  <Link to={`/#${item.id}`} className="nav-link">
                     {item.value}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
