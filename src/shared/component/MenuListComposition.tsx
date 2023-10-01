@@ -9,11 +9,12 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { Avatar } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import { useNavigate } from "react-router-dom";
 
 export interface MenuListType {
   itemList: {
     item: string;
-    action: () => void;
+    routeLink: string;
   }[];
 }
 
@@ -55,6 +56,7 @@ const MenuListComposition: React.FC<MenuListType> = ({ itemList }) => {
     prevOpen.current = open;
   }, [open]);
 
+  const navigate = useNavigate();
   return (
     <Stack direction="row" spacing={2}>
       <div>
@@ -99,7 +101,7 @@ const MenuListComposition: React.FC<MenuListType> = ({ itemList }) => {
                       <MenuItem
                         key={index}
                         onClick={handleClose}
-                        onClickCapture={item.action}
+                        onClickCapture={() => navigate(item.routeLink)}
                       >
                         {item.item}
                       </MenuItem>

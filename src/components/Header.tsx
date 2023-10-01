@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import MenuListComposition, {
   MenuListType,
 } from "../shared/component/MenuListComposition";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   title: string;
@@ -13,15 +14,11 @@ export const profileMenu: MenuListType = {
   itemList: [
     {
       item: "My Profile",
-      action() {
-        console.log("Go To My profile..");
-      },
+      routeLink: "/user-profile",
     },
     {
       item: "Log out",
-      action() {
-        console.log("Clicked in logout..");
-      },
+      routeLink: "/logout",
     },
   ],
 };
@@ -29,12 +26,13 @@ export const profileMenu: MenuListType = {
 const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   const [isCollapsed, setCollapsed] = useState(false);
   const menuList = [
-    { id: "home", value: "Home" },
-    { id: "menu", value: "Menu" },
+    { id: "home", value: "Home", routeLink: "/" },
     { id: "about", value: "About" },
+    { id: "menu", value: "Menu" },
     { id: "contact", value: "Contact" },
   ];
   const [activeMenu, setActiveMenu] = useState("Home");
+  const navigate = useNavigate();
 
   return (
     <header className="top-navbar">
@@ -63,12 +61,15 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
               {menuList.map((item) => (
                 <li
                   onClick={() => setActiveMenu(item.value)}
+                  onClickCapture={() =>
+                    item?.routeLink && navigate(item?.routeLink)
+                  }
                   className={`nav-item ${
                     item.value == activeMenu ? "active" : ""
                   }`}
                   key={item.id}
                 >
-                  <a className="nav-link" href={`#${item.id}`}>
+                  <a className="nav-link" href={`/#${item.id}`}>
                     {item.value}
                   </a>
                 </li>
