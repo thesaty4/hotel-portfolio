@@ -54,9 +54,9 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
     <header className="top-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand" href="index.html">
+          <Link to="/" className="navbar-brand">
             <img src={require("../assets/images/logo.png")} alt="" />
-          </a>
+          </Link>
           <button
             onClick={() => setCollapsed(!isCollapsed)}
             className="navbar-toggler"
