@@ -10,8 +10,16 @@ interface HeaderProps {
   onLogin: () => void;
 }
 
-export const profileMenu: MenuListType = {
+export let profileMenu: MenuListType = {
   itemList: [
+    {
+      item: "Login",
+      routeLink: "/sign-in",
+    },
+    {
+      item: "Sign Up",
+      routeLink: "/sign-up",
+    },
     {
       item: "My Profile",
       routeLink: "/user-profile",
@@ -34,6 +42,14 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   const [activeMenu, setActiveMenu] = useState("Home");
   const navigate = useNavigate();
 
+  // Ḥandle Login
+  const isLoggedIn = false;
+  profileMenu.itemList = profileMenu.itemList.filter((item) => {
+    const loggedList: string[] = !isLoggedIn
+      ? ["login", "signup"]
+      : ["myprofile", "logout"];
+    return loggedList.includes(item.item.split(" ").join("").toLowerCase());
+  });
   return (
     <header className="top-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

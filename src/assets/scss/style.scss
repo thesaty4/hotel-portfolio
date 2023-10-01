@@ -74,3 +74,9 @@ $secondaryColor: white;
 // }
 
 // /* Media queries for different screen sizes */
+.css-1vhaqj4-MuiButtonBase-root-MuiButton-root {
+  background-color: $primaryColor !important;
+  :hover {
+    background-color: $primaryColor !important;
+  }
+}

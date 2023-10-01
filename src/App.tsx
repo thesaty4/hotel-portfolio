@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "./assets/css/style.css";
 import UserProfile from "./components/UserProfile";
 import NotFound from "./components/NotFound";
+import SignUp from "./components/auth/SignUp";
+import SignIn from "./components/auth/SignIn";
 const App: React.FC = () => {
   const handleLogin = () => {
     // Implement your login logic here
@@ -28,6 +30,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/user-profile" element={<UserProfile />}></Route>
+          <Route path="/sign-in" element={<SignIn />}></Route>
+          <Route path="/sign-up" element={<SignUp />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer
