@@ -52,6 +52,7 @@ export default function SignUp() {
       formData.password?.length
     ) {
       console.log(formData);
+      debugger;
     } else {
       showSnackbar("Invalid form, Please Fix it", "warning");
     }
@@ -108,6 +109,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
+                  type="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
