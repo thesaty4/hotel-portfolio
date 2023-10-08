@@ -1,56 +1,98 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import MenuListComposition, {
+  MenuListType,
+} from "../shared/component/MenuListComposition";
+import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   title: string;
   onLogin: () => void;
 }
 
+export let profileMenu: MenuListType = {
+  itemList: [
+    {
+      item: "Login",
+      routeLink: "/sign-in",
+    },
+    {
+      item: "Sign Up",
+      routeLink: "/sign-up",
+    },
+    {
+      item: "My Profile",
+      routeLink: "/user-profile",
+    },
+    {
+      item: "Log out",
+      routeLink: "/logout",
+    },
+  ],
+};
+
 const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
+  const [isCollapsed, setCollapsed] = useState(false);
   const menuList = [
-    { id: "home", value: "Home" },
-    { id: "menu", value: "Menu" },
+    { id: "home", value: "Home", routeLink: "/" },
     { id: "about", value: "About" },
+    { id: "menu", value: "Menu" },
     { id: "contact", value: "Contact" },
   ];
   const [activeMenu, setActiveMenu] = useState("Home");
+  const navigate = useNavigate();
 
+  // Ḥandle Login
+  const isLoggedIn = false;
+  profileMenu.itemList = profileMenu.itemList.filter((item) => {
+    const loggedList: string[] = !isLoggedIn
+      ? ["login", "signup"]
+      : ["myprofile", "logout"];
+    return loggedList.includes(item.item.split(" ").join("").toLowerCase());
+  });
   return (
     <header className="top-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand" href="index.html">
+          <Link to="/" className="navbar-brand">
             <img src={require("../assets/images/logo.png")} alt="" />
-          </a>
+          </Link>
           <button
+            onClick={() => setCollapsed(!isCollapsed)}
             className="navbar-toggler"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbars-rs-food"
-            aria-controls="navbars-rs-food"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <Box
-            sx={{ justifyContent: "flex-end" }}
-            className="collapse navbar-collapse"
-            id="navbars-rs-food"
+            sx={{
+              justifyContent: "flex-end",
+              ...{ display: isCollapsed ? "block" : "none" },
+              padding: "20px 10px 20px",
+            }}
+            className="navbar-collapse"
+            id="navbarSupportedContent"
           >
             <ul style={{ gap: "10px" }} className="navbar-nav ml-auto">
               {menuList.map((item) => (
                 <li
                   onClick={() => setActiveMenu(item.value)}
+                  onClickCapture={() =>
+                    item?.routeLink && navigate(item?.routeLink)
+                  }
                   className={`nav-item ${
                     item.value == activeMenu ? "active" : ""
                   }`}
+                  key={item.id}
                 >
-                  <a className="nav-link" href={`#${item.id}`}>
+                  <Link to={`/#${item.id}`} className="nav-link">
                     {item.value}
-                  </a>
+                  </Link>
                 </li>
               ))}
+              <li>
+                <MenuListComposition itemList={profileMenu.itemList} />
+              </li>
             </ul>
           </Box>
         </div>
