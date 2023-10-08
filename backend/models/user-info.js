@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+/** Login Model */
 const userInfoSchema = new mongoose.Schema({
-    "user-id": String,
-    "password": String
+    firstName: String,
+    secondName: String,
+    email: String,
+    password: String
 }, { collection: 'user-info' });
 
 const UserInfo = mongoose.model('UserInfo', userInfoSchema);

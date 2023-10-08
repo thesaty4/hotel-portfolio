@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSnackbar from "../../custom-hooks/Snackbar";
+import Auth from "./services/Auth";
+import { UserType } from "./types/users.type";
 
 function Copyright(props: any) {
   return (
@@ -37,6 +39,25 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
+  const [signUpData, setSingUp] = React.useState<UserType | null>();
+
+  /**Api Calling */
+  const auth = new Auth();
+  React.useEffect(() => {
+    signUpData &&
+      auth
+        .signUp(signUpData)
+        .then((res) => {
+          showSnackbar("User Created Successfully", "success");
+          setSingUp(null);
+        })
+        .catch((error) => {
+          showSnackbar(error.toString(), "error");
+          setSingUp(null);
+        });
+  }, [signUpData, auth, showSnackbar, setSingUp]);
+
+  /**Form Handling */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -51,8 +72,7 @@ export default function SignUp() {
       formData.email?.length &&
       formData.password?.length
     ) {
-      console.log(formData);
-      debugger;
+      setSingUp(formData as UserType);
     } else {
       showSnackbar("Invalid form, Please Fix it", "warning");
     }
