@@ -29,7 +29,7 @@ export default function ContactUS() {
         <Typography variant="h4" align="center" mb={2}>
           Contact Us
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
             label="Name"
@@ -66,7 +66,7 @@ export default function ContactUS() {
           <Button variant="contained" type="submit" sx={{ mt: 2 }}>
             Submit
           </Button>
-        </form>
+        </Box>
       </Box>
     </Box>
   );
