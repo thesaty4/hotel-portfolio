@@ -63,6 +63,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              aria-required
             />
             <TextField
               margin="normal"

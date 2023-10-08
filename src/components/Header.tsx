@@ -35,9 +35,9 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   const [isCollapsed, setCollapsed] = useState(false);
   const menuList = [
     { id: "home", value: "Home", routeLink: "/" },
-    { id: "about", value: "About" },
-    { id: "menu", value: "Menu" },
-    { id: "contact", value: "Contact" },
+    { id: "about", value: "About", routeLink: "/about" },
+    { id: "menu", value: "Menu", routeLink: "/menu" },
+    { id: "contact", value: "Contact", routeLink: "/contact" },
   ];
   const [activeMenu, setActiveMenu] = useState("Home");
   const navigate = useNavigate();
@@ -85,9 +85,7 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
                   }`}
                   key={item.id}
                 >
-                  <Link to={`/#${item.id}`} className="nav-link">
-                    {item.value}
-                  </Link>
+                  <span className="nav-link">{item.value}</span>
                 </li>
               ))}
               <li>

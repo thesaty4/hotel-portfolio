@@ -10,6 +10,16 @@ import UserProfile from "./components/UserProfile";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
+import About from "./components/About";
+import ItemMenu from "./components/ItemMenu";
+import Gallery from "./components/Gallery";
+import {
+  aboutContent,
+  galleryContent,
+  items,
+} from "./constant/hotel-feature-data.const";
+import { styles } from "./assets/style-object/common-style";
+import ContactUS from "./components/ContactUS";
 const App: React.FC = () => {
   const handleLogin = () => {
     // Implement your login logic here
@@ -32,6 +42,19 @@ const App: React.FC = () => {
           <Route path="/user-profile" element={<UserProfile />}></Route>
           <Route path="/sign-in" element={<SignIn />}></Route>
           <Route path="/sign-up" element={<SignUp />}></Route>
+          <Route
+            path="/about"
+            element={<About info={aboutContent} sx={styles.about} />}
+          ></Route>
+          <Route
+            path="/menu"
+            element={<ItemMenu items={items} sx={styles.itemMenu} />}
+          ></Route>
+          <Route
+            path="/gallery"
+            element={<Gallery items={galleryContent} />}
+          ></Route>
+          <Route path="/contact" element={<ContactUS />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer

@@ -1,11 +1,13 @@
 import React from "react";
 import { SlideItem } from "../types/main.type";
+import { Box, SxProps } from "@mui/system";
 interface AboutType {
   info: SlideItem;
+  sx?: SxProps;
 }
-const About: React.FC<AboutType> = ({ info }) => {
+const About: React.FC<AboutType> = ({ info, sx }) => {
   return (
-    <div className="about-section-box" id="about">
+    <Box className="about-section-box" id="about" sx={sx}>
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-6 col-sm-12">
@@ -28,7 +30,7 @@ const About: React.FC<AboutType> = ({ info }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

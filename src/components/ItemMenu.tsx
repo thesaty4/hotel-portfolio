@@ -2,14 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { ItemMenuType } from "../types/main.type";
 import "../assets/scss/item.style.scss";
+import { Box, SxProps } from "@mui/system";
 interface ItemMenuComponentType {
   items: ItemMenuType;
+  sx?: SxProps;
 }
-const ItemMenu: React.FC<ItemMenuComponentType> = ({ items }) => {
+const ItemMenu: React.FC<ItemMenuComponentType> = ({ items, sx }) => {
   const [selectedItem, itemAction] = useState("All");
   return (
     <>
-      <div id="menu" className="menu-box">
+      <Box id="menu" className="menu-box" sx={sx}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -78,7 +80,7 @@ const ItemMenu: React.FC<ItemMenuComponentType> = ({ items }) => {
             ))}
           </div>
         </div>
-      </div>
+      </Box>
     </>
   );
 };
