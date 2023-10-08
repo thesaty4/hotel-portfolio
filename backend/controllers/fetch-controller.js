@@ -5,7 +5,7 @@ fetchController.fetchData = async (req, res) => {
     try {
         const result = await SiteInfo.find({});
         console.log("Fetched data : ", result);
-        res.status(200).json(result[0]); // Send the result as a JSON response
+        res.status(200).json(result[0]);
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
