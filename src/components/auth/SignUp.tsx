@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -40,22 +40,25 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
   const [signUpData, setSingUp] = React.useState<UserType | null>();
+  const [loading, setLoading] = React.useState(false);
 
   /**Api Calling */
   const auth = new Auth();
-  React.useEffect(() => {
+  const signUpUser = () => {
     signUpData &&
       auth
         .signUp(signUpData)
         .then((res) => {
           showSnackbar("User Created Successfully", "success");
           setSingUp(null);
+          setLoading(false);
         })
         .catch((error) => {
           showSnackbar(error.toString(), "error");
           setSingUp(null);
+          setLoading(false);
         });
-  }, [signUpData, auth, showSnackbar, setSingUp]);
+  };
 
   /**Form Handling */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -72,6 +75,7 @@ export default function SignUp() {
       formData.email?.length &&
       formData.password?.length
     ) {
+      setLoading(true);
       setSingUp(formData as UserType);
     } else {
       showSnackbar("Invalid form, Please Fix it", "warning");
@@ -109,8 +113,15 @@ export default function SignUp() {
                   name="firstName"
                   required
                   fullWidth
+                  value={signUpData?.firstName}
                   id="firstName"
                   label="First Name"
+                  onChange={(e) =>
+                    setSingUp({
+                      ...signUpData,
+                      firstName: e.target.value,
+                    } as UserType)
+                  }
                   autoFocus
                 />
               </Grid>
@@ -120,7 +131,14 @@ export default function SignUp() {
                   fullWidth
                   id="lastName"
                   label="Last Name"
+                  value={signUpData?.secondName}
                   name="lastName"
+                  onChange={(e) =>
+                    setSingUp({
+                      ...signUpData,
+                      secondName: e.target.value,
+                    } as UserType)
+                  }
                   autoComplete="family-name"
                 />
               </Grid>
@@ -130,8 +148,15 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   type="email"
+                  value={signUpData?.email}
                   label="Email Address"
                   name="email"
+                  onChange={(e) =>
+                    setSingUp({
+                      ...signUpData,
+                      email: e.target.value,
+                    } as UserType)
+                  }
                   autoComplete="email"
                 />
               </Grid>
@@ -142,6 +167,13 @@ export default function SignUp() {
                   name="password"
                   label="Password"
                   type="password"
+                  value={signUpData?.password}
+                  onChange={(e) =>
+                    setSingUp({
+                      ...signUpData,
+                      password: e.target.value,
+                    } as UserType)
+                  }
                   id="password"
                   autoComplete="new-password"
                 />
@@ -160,6 +192,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
               Sign Up
             </Button>

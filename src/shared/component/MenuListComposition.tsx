@@ -35,6 +35,7 @@ const MenuListComposition: React.FC<MenuListType> = ({ itemList }) => {
     }
 
     setOpen(false);
+    window.scrollTo(0, 0);
   };
 
   function handleListKeyDown(event: React.KeyboardEvent) {

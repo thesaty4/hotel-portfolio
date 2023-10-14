@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuListComposition, {
   MenuListType,
 } from "../shared/component/MenuListComposition";
@@ -41,6 +41,9 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   ];
   const [activeMenu, setActiveMenu] = useState("Home");
   const navigate = useNavigate();
+  useEffect(() => {
+    scrollToTop();
+  }, [activeMenu]);
 
   // Ḥandle Login
   const isLoggedIn = false;
@@ -73,7 +76,10 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
             className="navbar-collapse"
             id="navbarSupportedContent"
           >
-            <ul style={{ gap: "10px" }} className="navbar-nav ml-auto">
+            <ul
+              style={{ gap: "10px", cursor: "pointer" }}
+              className="navbar-nav ml-auto"
+            >
               {menuList.map((item) => (
                 <li
                   onClick={() => setActiveMenu(item.value)}
@@ -100,3 +106,7 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
 };
 
 export default Header;
+
+function scrollToTop() {
+  window.scrollTo(0, 0);
+}
