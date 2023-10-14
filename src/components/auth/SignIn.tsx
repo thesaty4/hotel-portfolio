@@ -12,22 +12,48 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useSnackbar from "../../custom-hooks/Snackbar";
+import Auth from "./services/Auth";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const { showSnackbar, SnackbarComponent } = useSnackbar();
+  const [loginInfo, setLoginInfo] = React.useState({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (loading && isFormValid()) {
+      const auth = new Auth();
+      auth
+        .login(loginInfo)
+        .then((res) => {
+          debugger;
+          setLoading(false);
+        })
+        .catch((error) => {
+          showSnackbar("Getting Error While Login...", "error");
+          setLoading(false);
+        });
+    }
+  }, [loading]);
+
+  const isFormValid = () => {
+    const isValid = Object.values(loginInfo).every((item) => item.length >= 1);
+    if (!isValid) {
+      showSnackbar("Please fix invalid fields !", "error");
+      setLoading(false);
+    }
+    return isValid;
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <SnackbarComponent />
       <Container
         component="main"
         maxWidth="xs"
@@ -48,7 +74,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -59,6 +85,10 @@ export default function SignIn() {
               autoComplete="email"
               autoFocus
               aria-required
+              value={loginInfo.email}
+              onChange={(event) =>
+                setLoginInfo({ ...loginInfo, email: event.target.value })
+              }
             />
             <TextField
               margin="normal"
@@ -68,6 +98,10 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              value={loginInfo.password}
+              onChange={(event) =>
+                setLoginInfo({ ...loginInfo, password: event.target.value })
+              }
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -75,9 +109,10 @@ export default function SignIn() {
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
+              onClick={() => setLoading(true)}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
