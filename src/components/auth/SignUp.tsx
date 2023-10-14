@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,70 +16,47 @@ import useSnackbar from "../../custom-hooks/Snackbar";
 import Auth from "./services/Auth";
 import { UserType } from "./types/users.type";
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
+const defaultForm = {
+  firstName: "",
+  secondName: "",
+  email: "",
+  password: "",
+};
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const { showSnackbar, SnackbarComponent } = useSnackbar();
-  const [signUpData, setSingUp] = React.useState<UserType | null>();
+  const [signUpForm, setSignUpForm] = React.useState<UserType>(defaultForm);
   const [loading, setLoading] = React.useState(false);
 
   /**Api Calling */
-  const auth = new Auth();
-  const signUpUser = () => {
-    signUpData &&
+  React.useEffect(() => {
+    if (loading && isFormValid()) {
+      const auth = new Auth();
       auth
-        .signUp(signUpData)
+        .signUp(signUpForm)
         .then((res) => {
           showSnackbar("User Created Successfully", "success");
-          setSingUp(null);
+          setSignUpForm(defaultForm);
           setLoading(false);
         })
         .catch((error) => {
           showSnackbar(error.toString(), "error");
-          setSingUp(null);
           setLoading(false);
         });
-  };
-
-  /**Form Handling */
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const formData = {
-      firstName: data.get("firstName")?.toString().trim(),
-      secondName: data.get("lastName")?.toString().trim(),
-      email: data.get("email")?.toString().trim(),
-      password: data.get("password")?.toString().trim(),
-    };
-    if (
-      formData.firstName?.length &&
-      formData.email?.length &&
-      formData.password?.length
-    ) {
-      setLoading(true);
-      setSingUp(formData as UserType);
-    } else {
-      showSnackbar("Invalid form, Please Fix it", "warning");
     }
+  }, [loading]);
+
+  const isFormValid = () => {
+    const isValid = Object.values(signUpForm)?.every(
+      (item) => item.length >= 1
+    );
+    if (!isValid) {
+      showSnackbar("All field required, please fix the form !", "error");
+      setLoading(false);
+    }
+    return isValid;
   };
 
   return (
@@ -105,7 +82,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -113,12 +90,12 @@ export default function SignUp() {
                   name="firstName"
                   required
                   fullWidth
-                  value={signUpData?.firstName}
+                  value={signUpForm?.firstName}
                   id="firstName"
                   label="First Name"
                   onChange={(e) =>
-                    setSingUp({
-                      ...signUpData,
+                    setSignUpForm({
+                      ...signUpForm,
                       firstName: e.target.value,
                     } as UserType)
                   }
@@ -131,11 +108,11 @@ export default function SignUp() {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  value={signUpData?.secondName}
+                  value={signUpForm?.secondName}
                   name="lastName"
                   onChange={(e) =>
-                    setSingUp({
-                      ...signUpData,
+                    setSignUpForm({
+                      ...signUpForm,
                       secondName: e.target.value,
                     } as UserType)
                   }
@@ -148,12 +125,12 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   type="email"
-                  value={signUpData?.email}
+                  value={signUpForm?.email}
                   label="Email Address"
                   name="email"
                   onChange={(e) =>
-                    setSingUp({
-                      ...signUpData,
+                    setSignUpForm({
+                      ...signUpForm,
                       email: e.target.value,
                     } as UserType)
                   }
@@ -167,10 +144,10 @@ export default function SignUp() {
                   name="password"
                   label="Password"
                   type="password"
-                  value={signUpData?.password}
+                  value={signUpForm?.password}
                   onChange={(e) =>
-                    setSingUp({
-                      ...signUpData,
+                    setSignUpForm({
+                      ...signUpForm,
                       password: e.target.value,
                     } as UserType)
                   }
@@ -188,11 +165,11 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={loading}
+              onClick={() => setLoading(true)}
             >
               Sign Up
             </Button>
