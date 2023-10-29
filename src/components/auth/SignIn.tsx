@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSnackbar from "../../custom-hooks/Snackbar";
 import Auth from "./services/Auth";
+import useLogin from "../../custom-hooks/useLogin";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -25,6 +26,7 @@ export default function SignIn() {
     password: "",
   });
   const [loading, setLoading] = React.useState(false);
+  const { info, saveLogin } = useLogin();
 
   React.useEffect(() => {
     if (loading && isFormValid()) {
@@ -32,11 +34,13 @@ export default function SignIn() {
       auth
         .login(loginInfo)
         .then((res) => {
+          saveLogin(res);
+          console.log(info);
           debugger;
           setLoading(false);
         })
         .catch((error) => {
-          showSnackbar("Getting Error While Login...", "error");
+          showSnackbar(error.toString(), "error");
           setLoading(false);
         });
     }

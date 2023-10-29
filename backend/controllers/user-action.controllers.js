@@ -55,7 +55,7 @@ userActionController.signInUser = async (req, res) => {
                 res.status(401).json({ error: "Password does not matched !" });
             }
         } else {
-            res.status(400).json({ message: "User does not exist !" });
+            res.status(400).json({ error: "User does not exist !" });
         }
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while getting the user' });

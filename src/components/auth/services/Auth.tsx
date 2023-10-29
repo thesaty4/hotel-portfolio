@@ -1,3 +1,4 @@
+import { UserDataResponse } from "../../../custom-hooks/useLogin";
 import RequestService from "../../../shared/service/RequestService";
 import { LoginType, UserType } from "../types/users.type";
 
@@ -6,8 +7,8 @@ export default class Auth extends RequestService {
     return this.post(`/api/v1/sign-up`, data);
   }
 
-  login(data: LoginType): Promise<LoginType> {
-    return this.get(`/api/v1/sign-in`);
+  login(data: LoginType): Promise<UserDataResponse> {
+    return this.post(`/api/v1/sign-in`, data);
   }
 
   clearUsers(): Promise<{ deletedUsers: UserType[] }> {

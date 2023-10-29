@@ -1,4 +1,4 @@
-export type UserType = {
+export interface UserType {
   firstName: string;
   secondName: string;
   email: string;
@@ -6,6 +6,6 @@ export type UserType = {
   profilePic?: string;
   address?: string;
   mobileNumber?: string;
-};
+}
 
 export type LoginType = Pick<UserType, "email" | "password">;

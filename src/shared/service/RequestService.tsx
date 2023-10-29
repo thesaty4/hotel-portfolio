@@ -8,11 +8,17 @@ export default class RequestService {
     data?: T
   ): Promise<T> {
     try {
+      const getInfo = () => {
+        const userInfo = localStorage.getItem("userInfo");
+        return userInfo ? JSON.parse(userInfo) : {};
+      };
+
       const response: AxiosResponse<T> = await axios({
         method,
         url: `${this.baseURL}${endpoint}`,
         headers: {
           "Content-Type": "application/json",
+          Authorization: getInfo()["x-token"],
         },
         data: JSON.stringify(data),
       });
@@ -34,7 +40,7 @@ export default class RequestService {
     return this.makeRequest("get", endpoint);
   }
 
-  async post<T>(endpoint: string, data?: T): Promise<T> {
+  async post<T>(endpoint: string, data?: T): Promise<any> {
     return this.makeRequest("post", endpoint, data);
   }
 

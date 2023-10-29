@@ -28,7 +28,7 @@ passport.use(
 
 /**Authentication */
 router.post('/api/v1/sign-up', signUpUser);
-router.get('/api/v1/sign-in', signInUser);
+router.post('/api/v1/sign-in', signInUser);
 router.delete('/api/v1/users', deleteController.deleteUsers);
 
 /**Site Information */
