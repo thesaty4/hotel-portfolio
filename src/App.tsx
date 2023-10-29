@@ -20,6 +20,8 @@ import {
 } from "./constant/hotel-feature-data.const";
 import { styles } from "./assets/style-object/common-style";
 import ContactUS from "./components/ContactUS";
+import Protected from "./components/auth/Protected";
+import useLogin from "./custom-hooks/useLogin";
 const App: React.FC = () => {
   const handleLogin = () => {
     // Implement your login logic here
@@ -33,15 +35,31 @@ const App: React.FC = () => {
   //     .then((res) => setData(res.message));
   // }, []);
   // console.log("*********", data);
+  const info = useLogin();
+  const isLogged = !!info;
   return (
     <div className="main-wrapper">
       <Router>
         <Header title={hotel.name.toUpperCase()} onLogin={handleLogin} />
         <Routes>
           <Route path="/" element={<Main />}></Route>
-          <Route path="/user-profile" element={<UserProfile />}></Route>
-          <Route path="/sign-in" element={<SignIn />}></Route>
-          <Route path="/sign-up" element={<SignUp />}></Route>
+
+          <Route
+            path="/user-profile"
+            element={
+              <Protected element={<UserProfile />} isLoggedIn={isLogged} />
+            }
+          ></Route>
+
+          <Route
+            path="/sign-in"
+            element={<Protected element={<SignIn />} isLoggedIn={!isLogged} />}
+          ></Route>
+          <Route
+            path="/sign-up"
+            element={<Protected element={<SignUp />} isLoggedIn={!isLogged} />}
+          ></Route>
+
           <Route
             path="/about"
             element={<About info={aboutContent} sx={styles.about} />}

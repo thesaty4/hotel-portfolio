@@ -17,7 +17,6 @@ import React, { useState } from "react";
 import Request from "../services/Request";
 import { SiteInfo } from "../types/site-info.types";
 import useSnackbar from "../custom-hooks/Snackbar";
-import { Route } from "react-router-dom";
 const Main = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo>();
   const service = new Request();

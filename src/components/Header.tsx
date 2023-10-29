@@ -4,6 +4,7 @@ import MenuListComposition, {
   MenuListType,
 } from "../shared/component/MenuListComposition";
 import { Link, useNavigate } from "react-router-dom";
+import useLogin from "../custom-hooks/useLogin";
 
 interface HeaderProps {
   title: string;
@@ -54,7 +55,8 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   }, [activeMenu, setActiveMenu]);
 
   // Ḥandle Login
-  const isLoggedIn = false;
+  const { info } = useLogin();
+  const isLoggedIn = info;
   profileMenu.itemList = profileMenu.itemList.filter((item) => {
     const loggedList: string[] = !isLoggedIn
       ? ["login", "signup"]

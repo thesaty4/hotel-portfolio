@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -27,6 +27,7 @@ export default function SignIn() {
   });
   const [loading, setLoading] = React.useState(false);
   const { info, saveLogin } = useLogin();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (loading && isFormValid()) {
@@ -35,8 +36,7 @@ export default function SignIn() {
         .login(loginInfo)
         .then((res) => {
           saveLogin(res);
-          console.log(info);
-          debugger;
+          navigate("/");
           setLoading(false);
         })
         .catch((error) => {
