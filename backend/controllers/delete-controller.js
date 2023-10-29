@@ -3,13 +3,9 @@ const deleteController = {}
 
 deleteController.deleteUsers = async (req, res) => {
     try {
-        await UserInfo.deleteMany({}, (error, result) => {
-            if (error) {
-                res.status(500).json({ error: "Users Deletion Issue occurred.." })
-            } else {
-                res.status(200).json({ deleteUsers: result })
-            }
-        })
+        const users = await UserInfo.deleteMany({});
+        console.log(users);
+        res.status(200).send(users);
     } catch {
         res.status(500).json({ error: "Users Deletion Issue occurred.." })
     }

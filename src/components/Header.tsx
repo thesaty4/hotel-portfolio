@@ -40,10 +40,18 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
     { id: "contact", value: "Contact", routeLink: "/contact" },
   ];
   const [activeMenu, setActiveMenu] = useState("Home");
+  const [isFirstTime, setRender] = useState<boolean>();
   const navigate = useNavigate();
+
   useEffect(() => {
+    // Skip the effect on the first render
     scrollToTop();
-  }, [activeMenu]);
+    if (!isFirstTime) {
+      setRender(true);
+      return;
+    }
+    setCollapsed(!isCollapsed);
+  }, [activeMenu, setActiveMenu]);
 
   // Ḥandle Login
   const isLoggedIn = false;
