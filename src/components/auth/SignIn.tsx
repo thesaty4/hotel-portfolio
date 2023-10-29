@@ -36,7 +36,7 @@ export default function SignIn() {
         .login(loginInfo)
         .then((res) => {
           saveLogin(res);
-          navigate("/");
+          window.location.href = "/";
           setLoading(false);
         })
         .catch((error) => {

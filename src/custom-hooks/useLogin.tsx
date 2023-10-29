@@ -8,6 +8,13 @@ export default function useLogin() {
     return userInfo ? JSON.parse(userInfo) : null;
   };
 
+  const signOut = () => {
+    if (getInfo()) {
+      localStorage.removeItem("userInfo");
+    }
+    return true;
+  };
+
   const [info, setInfo] = useState<UserDataResponse>(getInfo());
 
   const saveInfo = (userInfo: UserDataResponse) => {
@@ -24,5 +31,6 @@ export default function useLogin() {
   return {
     saveLogin: saveInfo,
     info,
+    signOut,
   };
 }

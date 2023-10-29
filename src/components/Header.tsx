@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ title, onLogin }) => {
   }, [activeMenu, setActiveMenu]);
 
   // Ḥandle Login
-  const { info } = useLogin();
+  const { info, signOut } = useLogin();
   const isLoggedIn = info;
   profileMenu.itemList = profileMenu.itemList.filter((item) => {
     const loggedList: string[] = !isLoggedIn

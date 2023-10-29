@@ -4,7 +4,13 @@ import Footer from "./components/Footer";
 import hotel from "./constant/hotel-details";
 import Main from "./components/Main";
 
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./assets/css/style.css";
 import UserProfile from "./components/UserProfile";
 import NotFound from "./components/NotFound";
@@ -36,7 +42,7 @@ const App: React.FC = () => {
   // }, []);
   // console.log("*********", data);
   const info = useLogin();
-  const isLogged = !!info;
+  const isLogged = !!info.info;
   return (
     <div className="main-wrapper">
       <Router>
@@ -46,18 +52,16 @@ const App: React.FC = () => {
 
           <Route
             path="/user-profile"
-            element={
-              <Protected element={<UserProfile />} isLoggedIn={isLogged} />
-            }
+            element={isLogged ? <UserProfile /> : <Navigate to="/" replace />}
           ></Route>
 
           <Route
             path="/sign-in"
-            element={<Protected element={<SignIn />} isLoggedIn={!isLogged} />}
+            element={isLogged ? <Navigate to="/" replace /> : <SignIn />}
           ></Route>
           <Route
             path="/sign-up"
-            element={<Protected element={<SignUp />} isLoggedIn={!isLogged} />}
+            element={isLogged ? <Navigate to="/" replace /> : <SignUp />}
           ></Route>
 
           <Route

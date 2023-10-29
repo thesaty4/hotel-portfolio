@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import { Avatar } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../../custom-hooks/useLogin";
 
 export interface MenuListType {
   itemList: {
@@ -22,6 +23,13 @@ const MenuListComposition: React.FC<MenuListType> = ({ itemList }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
+  const { info, signOut } = useLogin();
+  const logout = () => {
+    if (info) {
+      signOut();
+      window.location.href = "/";
+    }
+  };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -102,7 +110,11 @@ const MenuListComposition: React.FC<MenuListType> = ({ itemList }) => {
                       <MenuItem
                         key={index}
                         onClick={handleClose}
-                        onClickCapture={() => navigate(item.routeLink)}
+                        onClickCapture={() =>
+                          item.routeLink === "/logout"
+                            ? logout()
+                            : navigate(item.routeLink)
+                        }
                       >
                         {item.item}
                       </MenuItem>
